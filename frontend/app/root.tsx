@@ -52,7 +52,7 @@ export default function App() {
             staleTime: 60 * 1000,
           },
         },
-      }),
+      })
   );
   return (
     <QueryClientProvider client={queryClient}>
