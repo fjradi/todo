@@ -10,7 +10,7 @@ import (
 
 type Querier interface {
 	AddTodo(ctx context.Context, name string) (Todo, error)
-	GetTodos(ctx context.Context) ([]Todo, error)
+	GetTodos(ctx context.Context, name string) ([]Todo, error)
 	UpdateTodo(ctx context.Context, arg UpdateTodoParams) (Todo, error)
 }
 

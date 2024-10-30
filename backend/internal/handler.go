@@ -35,8 +35,18 @@ func (h *Handler) AddTodo(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, todo)
 }
 
+type GetTodosRequest struct {
+	Search string `form:"search"`
+}
+
 func (h *Handler) GetTodos(ctx *gin.Context) {
-	todos, err := h.service.GetTodos(ctx.Request.Context())
+	var request GetTodosRequest
+	if err := ctx.ShouldBindQuery(&request); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": parseValidationError(err)})
+		return
+	}
+
+	todos, err := h.service.GetTodos(ctx.Request.Context(), request.Search)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

@@ -31,12 +31,14 @@ SELECT
     id, name, is_completed
 FROM
     todo
+WHERE
+    name ilike $1
 ORDER BY
     name
 `
 
-func (q *Queries) GetTodos(ctx context.Context) ([]Todo, error) {
-	rows, err := q.db.Query(ctx, getTodos)
+func (q *Queries) GetTodos(ctx context.Context, name string) ([]Todo, error) {
+	rows, err := q.db.Query(ctx, getTodos, name)
 	if err != nil {
 		return nil, err
 	}

@@ -3,6 +3,8 @@ SELECT
     id, name, is_completed
 FROM
     todo
+WHERE
+    name ilike $1
 ORDER BY
     name;
 
